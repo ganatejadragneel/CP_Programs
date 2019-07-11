@@ -1,0 +1,21 @@
+//https://practice.geeksforgeeks.org/problems/print-all-possible-strings/1
+class GfG
+{
+    void print(String str,String newString,int index,boolean check){
+        if(index>=str.length()){
+            System.out.print(newString+"$");
+            return;
+        }
+        print(str,newString+str.charAt(index),index+1,true);
+        if(check){
+            print(str,newString+" ",index,false);
+        }
+    }
+    void printSpace(String str)
+    {
+        // Your code here
+        String newStr="";
+        newStr+=str.charAt(0);
+        print(str,newStr,1,true);
+    }
+}

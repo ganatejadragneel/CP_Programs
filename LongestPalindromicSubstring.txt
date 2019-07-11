@@ -1,0 +1,44 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main (String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            String s = br.readLine().trim();
+            int n = s.length();
+            boolean a[][]=new boolean[n][n];
+            int start=0;
+            int maxlength=1;
+            for(int i=0;i<n;i++) a[i][i]=true;
+            boolean u = true;
+            for(int i=0;i<n-1;i++){
+                if(s.charAt(i)==s.charAt(i+1)){
+                    if(u) start=i;
+                    u=false;
+                    maxlength=2;
+                    a[i][i+1]=true;
+                }
+            }
+            for(int k=3;k<=n;k++){
+                for(int i=0;i<n-k+1;i++){
+                    int j = i+k-1;
+                    if(a[i+1][j-1] && s.charAt(i)==s.charAt(j)){
+                        a[i][j]=true;
+                        if(k>maxlength) {
+                            start=i;
+                            maxlength=k;
+                        }
+                    }
+                }
+            }
+            String x="";
+            for(int i=start;i<maxlength+start;i++){
+                x+=s.charAt(i);
+            }
+            System.out.println(x);
+        }
+    }
+}

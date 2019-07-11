@@ -1,0 +1,89 @@
+package graphs;
+import java.util.*;
+import java.io.*;
+
+public class Graphs {
+    
+    static class Graph{
+        int V;
+        LinkedList<Integer> adjList[];
+        Graph(int V){
+            this.V=V;
+            adjList=new LinkedList[V];
+            for(int i=0;i<V;i++) adjList[i]=new LinkedList<>();
+        }
+    }
+    
+    static void addEdge(Graph graph,int x,int y){
+        graph.adjList[x].add(y);
+        //graph.adjList[y].add(x);
+    }
+    
+    static Graph transpose(Graph graph){
+        Graph g = new Graph(graph.V);
+        for(int i=0;i<graph.V;i++){
+            Iterator<Integer> it = graph.adjList[i].iterator();
+            while(it.hasNext()) g.adjList[it.next()].add(i);
+        }
+        return g;
+    }
+    
+    static void do_dfs(Graph graph,int x,boolean[] visited){
+        visited[x]=true;
+        System.out.print(x+" ");
+        Iterator<Integer> it = graph.adjList[x].iterator();
+        while(it.hasNext()){
+            x=it.next();
+            if(!visited[x]){
+                do_dfs(graph,x,visited);
+            }
+        }
+    }
+    
+    static void dfs(Graph graph,int x){
+        boolean visited[]=new boolean[graph.V];
+        for(int i=0;i<graph.V;i++){
+            if(!visited[i]) do_dfs(graph,x,visited);
+        }
+    }
+    
+    static void fillOrder(Graph graph,int x,boolean visited[],Stack stack){
+        visited[x]=true;
+        Iterator<Integer> it = graph.adjList[x].iterator();
+        while(it.hasNext()){
+            int i = it.next();
+            if(!visited[i]) fillOrder(graph,i,visited,stack);
+        }
+        stack.push(new Integer(x));
+    }
+    
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Graph graph = new Graph(5);
+        addEdge(graph,0,1);
+        addEdge(graph,1,2);
+        addEdge(graph,2,3);
+        addEdge(graph,4,2);
+        addEdge(graph,3,4);
+        //dfs(graph,0);
+        //System.out.println();
+        Stack stack = new Stack();
+        int l = graph.V;
+        boolean visited[]=new boolean[l];
+        
+        for(int i=0;i<l;i++){
+            if(!visited[i]) fillOrder(graph,i,visited,stack);
+        }
+        //System.out.println(stack);
+        Graph g = transpose(graph);
+        //dfs(g,4);
+        for(int i=0;i<l;i++) visited[i]=false;
+        while(!stack.empty()){ 
+            int x = (int)stack.pop();
+            if(!visited[x]) {
+                do_dfs(g,x,visited);
+                System.out.println();
+            }
+        }
+    }
+}

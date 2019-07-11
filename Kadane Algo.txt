@@ -1,0 +1,29 @@
+package gfg;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+import java.sql.*;
+class GFG
+{
+    static int kadane(int a[],int size){
+        int max_temp=0;
+        int max_final = Integer.MIN_VALUE;
+        for(int i=0;i<size;i++){
+            max_temp=max_temp+a[i];
+            if(max_final<max_temp) max_final=max_temp;
+            if(max_temp<0) max_temp=0;
+        }
+        return max_final;
+    }
+    public static void main (String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            int n = Integer.parseInt(br.readLine());
+            String s[]=br.readLine().trim().split("\\s+");
+            int a[]=new int[n];
+            for(int i=0;i<n;i++) a[i]=Integer.parseInt(s[i]);
+            System.out.println(kadane(a,n));
+        }
+    }
+}

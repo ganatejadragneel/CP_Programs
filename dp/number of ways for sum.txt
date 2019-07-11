@@ -1,0 +1,23 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static int numberOfWays(int n){
+        int ArrayCount[]=new int[n+1];
+        ArrayCount[0]=1;
+        for(int i=3;i<=n;i++) ArrayCount[i]+=ArrayCount[i-3];
+        for(int i=5;i<=n;i++) ArrayCount[i]+=ArrayCount[i-5];
+        for(int i=10;i<=n;i++) ArrayCount[i]+=ArrayCount[i-10];
+        return ArrayCount[n];
+    }
+    public static void main (String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim());
+        while(t-->0){
+            int n = Integer.parseInt(br.readLine().trim());
+            System.out.println(numberOfWays(n));
+        }
+    }
+}

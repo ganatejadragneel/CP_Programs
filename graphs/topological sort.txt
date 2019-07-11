@@ -1,0 +1,58 @@
+package graphs;
+import java.util.*;
+import java.io.*;
+
+public class Graphs {
+    
+    static class Graph{
+        int V;
+        LinkedList<Integer> adjList[];
+        
+        Graph(int V){
+            this.V=V;
+            adjList = new LinkedList[V];
+            for(int i=0;i<V;i++) adjList[i]=new LinkedList<>();
+        }
+    }
+    
+    static void addEdge(Graph graph,int source,int dest){
+        graph.adjList[source].add(dest);
+        //graph.adjList[dest].add(source);
+    }
+    
+    static void top_sort_util(Graph graph,int i, boolean []visited, Stack st){
+        int l = graph.adjList.length;
+        visited[i]=true;
+        Iterator<Integer> it = graph.adjList[i].iterator();
+        while(it.hasNext()){
+            int x = it.next();
+            if(!visited[x]) top_sort_util(graph,x,visited,st);
+        }
+        st.push(new Integer(i));
+    }
+    
+    static void top_sort(Graph graph){
+        boolean visited[]=new boolean[graph.adjList.length];
+        Stack<Integer> st = new Stack<>();
+        for(int i=0;i<graph.adjList.length;i++){
+            if(!visited[i]) top_sort_util(graph,i,visited,st);
+        }
+        while(!st.empty()){
+            System.out.print(st.peek()+" ");
+            st.pop();
+        }
+    }
+    
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //int nodes = Integer.parseInt(br.readLine().trim());
+        Graph graph = new Graph(6);
+        addEdge(graph,0,1);
+        addEdge(graph,1,2);
+        addEdge(graph,2,3);
+        addEdge(graph,3,1);
+        /*addEdge(graph,2,4);
+        addEdge(graph,3,4);*/
+        top_sort(graph);
+    }
+}

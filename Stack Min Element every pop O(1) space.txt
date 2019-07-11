@@ -1,0 +1,68 @@
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+class getMin
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        
+        while(t-- > 0)
+        {
+            int n = sc.nextInt();
+            int arr[] = new int[n];
+            
+            for(int i = 0; i < n; i++)
+              arr[i] = sc.nextInt();
+              
+            Stack<Integer>mys = new GetMin()._push(arr,n);
+            new GetMin()._getMinAtPop(mys);
+            System.out.println();
+        }
+    }
+}
+/*This is a function problem.You only need to complete the function given below*/
+//User function Template for Java
+class GetMin
+{
+    static int min=Integer.MAX_VALUE;
+    /* inserts elements of the array into 
+        stack and return the stackn*/
+    public static Stack<Integer> _push(int arr[],int n)
+    {
+        Stack<Integer> st = new Stack<>();
+        for(int i=0;i<n;i++){
+            if(st.empty()){
+                st.push(arr[i]);
+                min=arr[i];
+            }
+            else if(arr[i]<min){
+                int x = (2*arr[i])-min;
+                min=arr[i];
+                st.push(x);
+            }
+            else st.push(arr[i]);
+            //System.out.print(min+" ");
+        }
+        //System.out.println();
+        return st;
+    }
+    
+    static void _getMinAtPop(Stack<Integer>s)
+    {
+        // your code here
+        while(!s.empty()){
+            if(s.peek()<min){
+                System.out.print(min+" ");
+                int x = 2*min-s.peek();
+                min = x;
+                s.pop();
+            }
+            else{
+                System.out.print(min+" ");
+                s.pop();
+            }
+        }
+    }
+}

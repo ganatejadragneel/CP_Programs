@@ -1,0 +1,44 @@
+package gfg;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static Map<String, String> phone = new HashMap<String, String>() {{
+        put("2", "abc");
+        put("3", "def");
+        put("4", "ghi");
+        put("5", "jkl");
+        put("6", "mno");
+        put("7", "pqrs");
+        put("8", "tuv");
+        put("9", "wxyz");
+    }};
+    
+    static List<String> result = new ArrayList<String>();
+    
+    public static void getCombs(String digits,String newString){
+        if(digits.equals("")){
+            result.add(newString);
+        }
+        else{
+            String s = digits.substring(0, 1);
+            String gett = phone.get(s);
+            for(int j=0;j<gett.length();j++){
+                String x = phone.get(s).substring(j, j + 1);
+                getCombs(digits.substring(1),newString+x);
+            }
+        }
+    }
+    
+    public static void main (String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            String s=br.readLine().trim();
+            getCombs(s,"");
+            System.out.println(result);
+            result.clear();
+        }
+    }
+}

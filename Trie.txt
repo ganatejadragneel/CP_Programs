@@ -1,0 +1,80 @@
+package main;
+import java.util.*;
+import java.io.*;
+public class Main {
+   
+    static class Trie{
+        final TrieNode root;
+        
+        public Trie(){
+            this.root=new TrieNode();
+        }
+        
+        public int query(final String s){
+            TrieNode current = root.next(s.charAt(0));
+            if(current==null) return 0;
+            for(int i=1;i<s.length();i++){
+                current = current.next(s.charAt(i));
+                if(current==null) return 0;
+            }
+            return current.terminating;
+        }
+        
+        public void insert(final String s){
+            TrieNode current = root;
+            for(int i=0;i<s.length();i++){
+                if(current.trieNodes[s.charAt(i)-'a']==null){
+                    current.trieNodes[s.charAt(i)-'a']=new TrieNode();
+                }
+                current=current.next(s.charAt(i));
+            }
+            current.terminating++;
+        }
+        
+        public void delete(final String s){
+            TrieNode current = root;
+            for(int i=0;i<s.length();i++){
+                if(current==null){
+                    throw new RuntimeException("String doesn't exist");
+                }
+                current=current.next(s.charAt(i));
+            }
+            if(current.terminating==0) System.out.println("String doesn't exist");
+            else current.terminating--;
+        }
+        
+        public void update(String old,String newString){
+            delete(old);
+            insert(newString);
+        }
+        
+    }
+    
+    static class TrieNode{
+        int terminating;
+        final TrieNode [] trieNodes = new TrieNode[26];
+        
+        public TrieNode next(final char c){
+            return trieNodes[c-'a'];
+        }
+        
+    }
+    
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        List<String> setOfStrings  = new ArrayList<>();
+        setOfStrings.add("pqrs");
+        setOfStrings.add("pprt");
+        setOfStrings.add("psst");
+        setOfStrings.add("qqrs");
+        setOfStrings.add("pqrs");
+        final Trie trie = new Trie();
+        setOfStrings.forEach(trie::insert);
+        System.out.println(trie.query("pqrs"));
+        System.out.println(trie.query("abc"));
+        System.out.println(trie.query("psst"));
+        trie.delete("psst");
+        System.out.println(trie.query("psst"));
+        trie.delete("psst");
+    }
+}

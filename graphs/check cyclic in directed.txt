@@ -1,0 +1,56 @@
+package graphs;
+import java.util.*;
+import java.io.*;
+
+public class Graphs {
+    
+    static class Graph{
+        int V;
+        LinkedList<Integer> adjList[];
+        
+        Graph(int V){
+            this.V=V;
+            adjList = new LinkedList[V];
+            for(int i=0;i<V;i++) adjList[i]=new LinkedList<>();
+        }
+    }
+    
+    static void addEdge(Graph graph,int source,int dest){
+        graph.adjList[source].add(dest);
+        //graph.adjList[dest].add(source);
+    }
+    
+    static boolean isCyclicUtil(Graph graph,int i,boolean visited[],boolean recStack[]){
+        if(recStack[i]) return true;
+        if(visited[i]) return false;
+        recStack[i]=true;
+        visited[i]=true;
+        List<Integer> list = graph.adjList[i];
+        for(Integer x:list){
+            if(isCyclicUtil(graph,x,visited,recStack)) return true;
+        }
+        recStack[i]=false;
+        return false;
+    }
+    
+    static boolean isCyclic(Graph graph){
+        int l = graph.adjList.length;
+        boolean visited[]=new boolean[l+1];
+        boolean recStack[]=new boolean[l+1];
+        for(int i=0;i<l;i++) if(isCyclicUtil(graph,i,visited,recStack)) return true;
+        return false;
+    }
+    
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //int nodes = Integer.parseInt(br.readLine().trim());
+        Graph graph = new Graph(5);
+        addEdge(graph,0,1);
+        addEdge(graph,1,2);
+        addEdge(graph,2,3);
+        addEdge(graph,3,1);
+        addEdge(graph,2,4);
+        addEdge(graph,3,4);
+        System.out.println(isCyclic(graph));
+    }
+}

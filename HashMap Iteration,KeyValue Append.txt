@@ -1,0 +1,38 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+ {
+	public static void main (String[] args)
+	 {
+	     try{
+	         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	         int t = Integer.parseInt(br.readLine());
+	         while(t>0){
+	             int n = Integer.parseInt(br.readLine());
+	             String s[]=br.readLine().trim().split("\\s+");
+	             Map<String,Integer> map = new HashMap<String,Integer>();
+	             int x=0;
+	             for(int i=0;i<n;i++){
+	                 int count = map.containsKey(s[i])? map.get(s[i]):0;
+	                 map.put(s[i],count+1);
+	             }
+	             Iterator it = map.entrySet().iterator();
+	             while(it.hasNext()){
+	                 Map.Entry pair = (Map.Entry)it.next();
+	                 int count = Integer.valueOf((int)pair.getValue());
+                     //System.out.println(pair.getKey() + " = " + count);
+                     if(count%2!=0){
+                         System.out.println(pair.getKey());
+                         break;
+                     }
+                     //it.remove();
+	             }
+	             t--;
+	         }
+	     }
+	     catch(Exception e){
+	         e.printStackTrace();
+	     }
+	 }
+}

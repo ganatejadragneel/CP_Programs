@@ -1,0 +1,39 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main (String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            int n = Integer.parseInt(br.readLine());
+            String s[]=br.readLine().trim().split("\\s+");
+            long a[]=new long[n];
+            for(long i=0;i<n;i++) a[(int)i]=Long.parseLong(s[(int)i]);
+            Stack<Integer> st = new Stack<>();
+            long max_area=0;
+            long temp_area=0;
+            long i=0;
+            long top=0;
+            while(i<n){
+                if(st.empty() || a[(st.peek())]<=a[(int)i]){
+                    st.push((int)i++);
+                }
+                else{
+                    top=st.peek();
+                    st.pop();
+                    temp_area = st.empty()?(a[(int)top]*i):(a[(int)top]*(i-1-st.peek()));
+                    if(max_area<temp_area) max_area=temp_area;
+                }
+            }
+            while(!st.empty()){
+                top=st.peek();
+                st.pop();
+                temp_area= a[(int)top]*(st.empty()?i:(i-1-st.peek()));
+                if(max_area<temp_area) max_area=temp_area;
+            }
+            System.out.println(max_area);
+        }
+    }
+}

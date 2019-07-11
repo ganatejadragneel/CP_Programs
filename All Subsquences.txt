@@ -1,0 +1,36 @@
+package gfg;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void subsequencePrint(int n,int arr[]){
+        int opsize=1<<n;
+        
+        for(int i=1;i<opsize;i++){
+            for(int j=0;j<n;j++){
+                if((i & (1<<j))>0){
+                    System.out.print(arr[j]+" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+    public static void main (String[] args)
+    {
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            int t = Integer.parseInt(br.readLine());
+            while(t-->0){
+                int n = Integer.parseInt(br.readLine());
+                String s[]=br.readLine().trim().split("\\s+");
+                int a[]=new int[n];
+                for(int i=0;i<n;i++) a[i]=Integer.parseInt(s[i]);
+                subsequencePrint(n,a);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t,n;
+    int a[100],b[100],i,j,mx;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        for(i=0;i<n;i++)
+            cin>>a[i];
+        for(i=0;i<n;i++)
+            cin>>b[i];
+        i=0;
+        int curr[100];
+        curr[0]=max(a[0],b[0]);
+        curr[1]=max(max(a[1],b[1]),curr[0]);
+        i=2;
+        while(i<n){
+            mx=INT_MIN;
+            for(j=0;j<i-1;j++){
+                if(mx<curr[j])
+                mx=curr[j];
+                
+            }
+            curr[i]=mx+max(a[i],b[i]);
+            if(curr[i]<curr[i-1])
+            curr[i]=curr[i-1];
+            i++;
+        }
+        cout<<curr[n-1]<<endl;
+    }
+    
+	//code
+	return 0;
+}

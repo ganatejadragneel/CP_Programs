@@ -1,0 +1,42 @@
+package graphs;
+import java.util.*;
+import java.io.*;
+
+public class Graphs {
+    
+    static class Graph{
+        int V;
+        LinkedList<Integer> adjList[];
+        
+        Graph(int V){
+            this.V=V;
+            adjList = new LinkedList[V];
+            for(int i=0;i<V;i++) adjList[i]=new LinkedList<>();
+        }
+    }
+    
+    static void addEdge(Graph graph,int source,int dest){
+        graph.adjList[source].add(dest);
+        graph.adjList[dest].add(source);
+    }
+    
+    static void printGraph(Graph graph){
+        for(int v=0;v<graph.V;v++){
+            System.out.println("Adj list of matrix "+v);
+            System.out.print("head");
+            for(Integer ele:graph.adjList[v]) System.out.print("->"+ele);
+            System.out.println();
+        }
+    }
+    
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //int nodes = Integer.parseInt(br.readLine().trim());
+        Graph graph = new Graph(5);
+        addEdge(graph,0,1);
+        addEdge(graph,2,3);
+        addEdge(graph,2,4);
+        addEdge(graph,3,4);
+        printGraph(graph);
+    }
+}

@@ -1,0 +1,40 @@
+package main;
+import java.util.*;
+import java.io.*;
+public class Main {
+    private static Map<Integer,Integer> parent = new HashMap<>();
+    
+    private static void initialize(int []arr){
+        for(int i:arr) parent.put(i, i);
+    }
+    
+    private static int find(int k){
+        if(parent.get(k)==k) return k;
+        return find(parent.get(k));
+    }
+    
+    private static void union(int i,int j){
+        int x = find(i);
+        int y = find(j);
+        parent.put(x,y);
+    }
+    
+    static private void printAll(int []arr,Main main){
+        for(int i:arr) System.out.print(main.find(i)+" ");
+        System.out.println();
+    }
+    
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int arr[]={1,2,3,4,5,6,7};
+        Main main = new Main();
+        main.initialize(arr);
+        printAll(arr,main);
+        main.union(1,2);
+        main.union(2,3);
+        main.union(2,5);
+        main.union(4,6);
+        main.union(7,4);
+        printAll(arr,main);
+    }
+}

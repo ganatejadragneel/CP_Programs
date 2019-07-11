@@ -1,0 +1,26 @@
+package javaapplication5;
+import java.util.*;
+public class JavaApplication5 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        String s = "Hello World";
+        Scanner sc = new Scanner(System.in);
+        Map<String,Integer> maps = new HashMap<>();
+        maps.put("I",2);
+        maps.put("Will",5);
+        maps.put("Kill",22);
+        maps.put("You",4);
+        System.out.println(maps);
+        String s1;
+        if(!maps.containsKey(s1 = sc.next())){
+            maps.put(s1,1);
+        }
+        System.out.println(maps.get(s1));
+        System.out.println(maps);
+        }
+    
+}

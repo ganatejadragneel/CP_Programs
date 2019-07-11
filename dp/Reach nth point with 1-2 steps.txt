@@ -1,0 +1,25 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main (String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim());
+        while(t-->0){
+            int n = Integer.parseInt(br.readLine().trim());
+            long dp[]=new long[n+1];
+            dp[0]=1;
+            int a[]=new int[]{1,2};
+            for(int i=1;i<=n;i++){
+                for(int j=0;j<2;j++){
+                    if(a[j]<=i){
+                        dp[i]+=dp[i-a[j]];
+                    }
+                }
+            }
+            System.out.println(dp[n]);
+        }
+    }
+}

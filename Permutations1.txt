@@ -1,0 +1,19 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> main = new ArrayList<>();
+        perm(nums,main,new ArrayList<>());
+        return main;
+    }
+    public static void perm(int[] nums,List<List<Integer>> res, List<Integer> templist){
+        if(templist.size()==nums.length){
+            res.add(new ArrayList<Integer>(templist));
+            return;
+        }
+        for(int i=0;i<nums.length;i++){
+            if(templist.contains(nums[i])) continue;
+            templist.add(nums[i]);
+            perm(nums,res,templist);
+            templist.remove(templist.size()-1);
+        }
+    }
+}

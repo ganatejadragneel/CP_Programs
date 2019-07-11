@@ -1,0 +1,46 @@
+package main;
+import java.util.*;
+import java.io.*;
+public class Main {
+   
+    static void printArray(int arr[]){
+        int n = arr.length;
+        for(int i=0;i<n;i++) System.out.print(arr[i]+" ");
+        System.out.println();
+    }
+    
+    static void sort(int arr[],int low,int high){
+        if(low<high){
+            int pi = partition(arr,low,high);
+            sort(arr,low,pi-1);
+            sort(arr,pi+1,high);
+        }
+    }
+    
+    static int partition(int arr[],int low,int high){
+        int pivot = arr[high];
+        int i = (low-1);
+        for(int j=low;j<high;j++){
+            if(arr[j]<=pivot){
+                i++;
+                int temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+            }
+        }
+        int temp = arr[i+1];
+        arr[i+1] = arr[high];
+        arr[high] = temp;
+        return i+1;
+    }
+    
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String s[]=br.readLine().trim().split("\\s+");
+        int a[]=new int[s.length];
+        for(int i=0;i<s.length;i++) a[i]=Integer.parseInt(s[i]);
+        Main quicksort = new Main();
+        quicksort.sort(a,0,s.length-1);
+        printArray(a);
+    }
+}

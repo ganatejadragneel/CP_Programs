@@ -1,0 +1,16 @@
+dists=[[0,10,75,94],[-1,0,35,50],[-1,-1,-0,80],[-1,-1,-1,0]]
+
+def calMinCost(s,d):
+    if(s==d or s==d-1): return dists[s][d]
+
+    minCost=dists[s][d]
+    
+    for i in range(s+1,d):
+        temp=calMinCost(s,i)+calMinCost(i,d)
+        print(temp)
+        if(temp<minCost):
+            minCost=temp
+    return minCost
+
+if(__name__=="__main__"):
+    print(calMinCost(0,3))
