@@ -27,8 +27,6 @@ class getMin
 class GetMin
 {
     static int min=Integer.MAX_VALUE;
-    /* inserts elements of the array into 
-        stack and return the stackn*/
     public static Stack<Integer> _push(int arr[],int n)
     {
         Stack<Integer> st = new Stack<>();

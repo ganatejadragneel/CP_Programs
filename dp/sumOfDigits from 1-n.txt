@@ -1,0 +1,46 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static int sumOfDigitsFrom1ToN(int n)  
+    { 
+        int d = (int)(Math.log10(n)); 
+        int a[] = new int[d+1];  
+        a[0] = 0; a[1] = 45;  
+        for (int i = 2; i <= d; i++)  
+            a[i] = a[i-1] * 10 + 45 *  
+                (int)(Math.ceil(Math.pow(10, i-1)));  
+      
+        return sumOfDigitsFrom1ToNUtil(n, a); 
+    } 
+     
+    static int sumOfDigitsFrom1ToNUtil(int n, int a[])  
+    { 
+        if (n < 10)  
+            return (n * (n + 1) / 2); 
+        
+        int d = (int)(Math.log10(n)); 
+        int p = (int)(Math.ceil(Math.pow(10, d)));  
+        int msd = n / p;  
+        return (msd * a[d] + (msd * (msd - 1) / 2) * p +  
+            msd * (1 + n % p) + sumOfDigitsFrom1ToNUtil(n % p, a));  
+    }
+    public static void main (String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim());
+        while(t-->0){
+            String s = br.readLine().trim();
+            int n = Integer.parseInt(s);
+            int sum=0;
+            if(s.length()==1){
+                for(int i=0;i<n;i++) sum+=i;
+                System.out.println(sum);
+            }
+            else{
+                System.out.println(sumOfDigitsFrom1ToN(n));
+            }
+        }
+    }
+}
